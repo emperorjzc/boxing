@@ -18,6 +18,7 @@ package com.bilibili.boxing.model.task.impl;
 
 import android.content.ContentResolver;
 import android.database.Cursor;
+import android.provider.MediaStore;
 import android.provider.MediaStore.Images.Media;
 import android.support.annotation.NonNull;
 import android.support.annotation.WorkerThread;
@@ -69,8 +70,7 @@ public class AlbumTask {
         String[] distinctBucketColumns = new String[]{Media.BUCKET_ID, Media.BUCKET_DISPLAY_NAME};
         Cursor bucketCursor = null;
         try {
-            bucketCursor = cr.query(Media.EXTERNAL_CONTENT_URI, distinctBucketColumns, "0==0)" + " GROUP BY (" + Media.BUCKET_ID, null,
-                    Media.DATE_MODIFIED + " desc");
+            bucketCursor = cr.query(MediaStore.Images.Media.EXTERNAL_CONTENT_URI, distinctBucketColumns, null, null, Media.DATE_MODIFIED + " desc");
             if (bucketCursor != null && bucketCursor.moveToFirst()) {
                 do {
                     String buckId = bucketCursor.getString(bucketCursor.getColumnIndex(Media.BUCKET_ID));
@@ -101,7 +101,7 @@ public class AlbumTask {
         String[] selectionArgs = new String[args.length + 1];
         selectionArgs[0] = buckId;
         for (int i = 1; i < selectionArgs.length; i++) {
-            selectionArgs[i] = args[i-1];
+            selectionArgs[i] = args[i - 1];
         }
         Cursor coverCursor = cr.query(Media.EXTERNAL_CONTENT_URI, photoColumn, selectionId,
                 selectionArgs, Media.DATE_MODIFIED + " desc");
