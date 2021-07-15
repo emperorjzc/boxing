@@ -20,6 +20,7 @@ package com.bilibili.boxing.model.entity.impl;
 
 import android.content.ContentResolver;
 import android.content.ContentValues;
+import android.net.Uri;
 import android.os.Parcel;
 import android.os.Parcelable;
 import android.provider.MediaStore;
@@ -54,6 +55,7 @@ public class ImageMedia extends BaseMedia implements Parcelable {
     private IMAGE_TYPE mImageType;
     private String mMimeType;
 
+
     public enum IMAGE_TYPE {
         PNG, JPG, GIF
     }
@@ -78,6 +80,7 @@ public class ImageMedia extends BaseMedia implements Parcelable {
         this.mWidth = builder.mWidth;
         this.mMimeType = builder.mMimeType;
         this.mImageType = getImageTypeByMime(builder.mMimeType);
+        this.uri = builder.uri;
     }
 
     @Override
@@ -208,6 +211,7 @@ public class ImageMedia extends BaseMedia implements Parcelable {
         return "ImageMedia{" +
                 ", mThumbnailPath='" + mThumbnailPath + '\'' +
                 ", mCompressPath='" + mCompressPath + '\'' +
+                ", uri='" + uri + '\'' +
                 ", mSize='" + mSize + '\'' +
                 ", mHeight=" + mHeight +
                 ", mWidth=" + mWidth;
@@ -255,6 +259,7 @@ public class ImageMedia extends BaseMedia implements Parcelable {
         private int mHeight;
         private int mWidth;
         private String mMimeType;
+        private Uri uri;
 
         public Builder(String id, String path) {
             this.mId = id;
@@ -291,6 +296,11 @@ public class ImageMedia extends BaseMedia implements Parcelable {
             return this;
         }
 
+        public Builder setUri(Uri uri) {
+            this.uri = uri;
+            return this;
+        }
+
         public ImageMedia build() {
             return new ImageMedia(this);
         }
@@ -311,6 +321,7 @@ public class ImageMedia extends BaseMedia implements Parcelable {
         dest.writeInt(this.mWidth);
         dest.writeInt(this.mImageType == null ? -1 : this.mImageType.ordinal());
         dest.writeString(this.mMimeType);
+        dest.writeString(String.valueOf(this.uri));
     }
 
     protected ImageMedia(Parcel in) {
@@ -323,6 +334,7 @@ public class ImageMedia extends BaseMedia implements Parcelable {
         int tmpMImageType = in.readInt();
         this.mImageType = tmpMImageType == -1 ? null : IMAGE_TYPE.values()[tmpMImageType];
         this.mMimeType = in.readString();
+        this.uri = Uri.parse(in.readString());
     }
 
     public static final Creator<ImageMedia> CREATOR = new Creator<ImageMedia>() {

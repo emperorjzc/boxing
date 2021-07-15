@@ -77,8 +77,7 @@ public class SecondActivity extends AppCompatActivity implements View.OnClickLis
                     behavior.setState(BottomSheetBehavior.STATE_HIDDEN);
                     if (medias != null && medias.size() > 0) {
                         BaseMedia media = mMedia = medias.get(0);
-                        String path = media.getPath();
-                        BoxingMediaLoader.getInstance().displayRaw(mResultImg, path, 1080, 720, null);
+                        BoxingMediaLoader.getInstance().displayRaw(mResultImg, media.getUri(), 1080, 720, null);
                     }
                 }
             });

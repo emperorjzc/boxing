@@ -17,6 +17,7 @@
 
 package com.bilibili.boxing_impl.view;
 
+import android.net.Uri;
 import android.support.annotation.NonNull;
 import android.support.test.InstrumentationRegistry;
 import android.support.test.runner.AndroidJUnit4;
@@ -49,12 +50,17 @@ public class MediaItemLayoutTest {
     public void setup() {
         BoxingMediaLoader.getInstance().init(new IBoxingMediaLoader() {
             @Override
-            public void displayThumbnail(@NonNull ImageView img, @NonNull String absPath, int width, int height) {
+            public void displayThumbnail(@NonNull ImageView img, @NonNull Uri uri, int width, int height) {
 
             }
 
             @Override
-            public void displayRaw(@NonNull ImageView img, @NonNull String absPath, int width, int height, IBoxingCallback callback) {
+            public void displayRaw(@NonNull ImageView img, @NonNull Uri uri, int width, int height, IBoxingCallback callback) {
+
+            }
+
+            @Override
+            public void displayUri(@NonNull ImageView img, @NonNull Uri uri, int width, int height) {
 
             }
         });

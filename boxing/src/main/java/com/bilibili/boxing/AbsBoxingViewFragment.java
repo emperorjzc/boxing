@@ -283,7 +283,7 @@ public abstract class AbsBoxingViewFragment extends Fragment implements PickerCo
     @Override
     public final void startCrop(@NonNull BaseMedia media, int requestCode) {
         BoxingCropOption cropConfig = BoxingManager.getInstance().getBoxingConfig().getCropOption();
-        BoxingCrop.getInstance().onStartCrop(getActivity(), this, cropConfig, media.getPath(), requestCode);
+        BoxingCrop.getInstance().onStartCrop(getActivity(), this, cropConfig, media.getUri(), requestCode);
     }
 
     /**
@@ -420,6 +420,7 @@ public abstract class AbsBoxingViewFragment extends Fragment implements PickerCo
         if (output != null) {
             List<BaseMedia> medias = new ArrayList<>(1);
             ImageMedia media = new ImageMedia(String.valueOf(System.currentTimeMillis()), output.getPath());
+            media.setUri(output);
             medias.add(media);
             onFinish(medias);
         }

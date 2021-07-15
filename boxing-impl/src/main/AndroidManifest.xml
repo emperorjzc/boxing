@@ -16,7 +16,8 @@
   -->
 
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-          package="com.bilibili.boxing_impl">
+    package="com.bilibili.boxing_impl"
+    android:requestLegacyExternalStorage="true">
 
     <application>
 
@@ -24,20 +25,18 @@
             android:name="com.bilibili.boxing_impl.ui.BoxingActivity"
             android:launchMode="singleTop"
             android:screenOrientation="portrait"
-            android:theme="@style/Boxing.AppTheme.NoActionBar">
-        </activity>
+            android:theme="@style/Boxing.AppTheme.NoActionBar"></activity>
 
         <activity
             android:name="com.bilibili.boxing_impl.ui.BoxingViewActivity"
             android:launchMode="singleTop"
             android:screenOrientation="portrait"
-            android:theme="@style/Boxing.AppTheme.NoActionBar">
-        </activity>
+            android:theme="@style/Boxing.AppTheme.NoActionBar"></activity>
 
         <activity
             android:name="com.bilibili.boxing_impl.ui.BoxingBottomSheetActivity"
             android:screenOrientation="portrait"
-            android:theme="@style/Boxing.AppTheme.NoActionBar"/>
+            android:theme="@style/Boxing.AppTheme.NoActionBar" />
 
     </application>
 

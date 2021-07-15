@@ -134,7 +134,7 @@ public class BoxingBottomSheetActivity extends AbsBoxingActivity implements View
     public void onBoxingFinish(Intent intent, @Nullable List<BaseMedia> medias) {
         if (mImage != null && medias != null && !medias.isEmpty()) {
             ImageMedia imageMedia = (ImageMedia) medias.get(0);
-            BoxingMediaLoader.getInstance().displayRaw(mImage, imageMedia.getPath(), 1080, 720, null);
+            BoxingMediaLoader.getInstance().displayRaw(mImage, imageMedia.getUri(), 1080, 720, null);
         }
         hideBottomSheet();
     }

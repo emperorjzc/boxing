@@ -51,4 +51,7 @@ public interface IBoxingCrop {
      * @return the cropped image uri.
      */
     Uri onCropFinish(int resultCode, Intent data);
+
+    void onStartCrop(Context context, Fragment fragment, @NonNull BoxingCropOption cropConfig,
+                     @NonNull Uri uri, int requestCode);
 }

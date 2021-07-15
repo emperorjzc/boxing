@@ -19,6 +19,7 @@ package com.bilibili.boxing_impl.view;
 
 import android.content.Context;
 import android.content.res.Configuration;
+import android.net.Uri;
 import android.support.annotation.DrawableRes;
 import android.support.annotation.NonNull;
 import android.text.TextUtils;
@@ -127,7 +128,7 @@ public class MediaItemLayout extends FrameLayout {
     public void setMedia(BaseMedia media) {
         if (media instanceof ImageMedia) {
             mVideoLayout.setVisibility(GONE);
-            setCover(((ImageMedia) media).getThumbnailPath());
+            setCover(((ImageMedia) media).getUri());
         } else if (media instanceof VideoMedia) {
             mVideoLayout.setVisibility(VISIBLE);
             VideoMedia videoMedia = (VideoMedia) media;
@@ -135,16 +136,16 @@ public class MediaItemLayout extends FrameLayout {
             durationTxt.setText(videoMedia.getDuration());
             durationTxt.setCompoundDrawablesWithIntrinsicBounds(BoxingManager.getInstance().getBoxingConfig().getVideoDurationRes(), 0, 0, 0);
             ((TextView) mVideoLayout.findViewById(R.id.video_size_txt)).setText(videoMedia.getSizeByUnit());
-            setCover(videoMedia.getPath());
+            setCover(videoMedia.getUri());
         }
     }
 
-    private void setCover(@NonNull String path) {
-        if (mCoverImg == null || TextUtils.isEmpty(path)) {
+    private void setCover(@NonNull Uri uri) {
+        if (mCoverImg == null) {
             return;
         }
-        mCoverImg.setTag(R.string.boxing_app_name, path);
-        BoxingMediaLoader.getInstance().displayThumbnail(mCoverImg, path, mScreenType.getValue(), mScreenType.getValue());
+        mCoverImg.setTag(R.string.boxing_app_name, uri);
+        BoxingMediaLoader.getInstance().displayUri(mCoverImg, uri, mScreenType.getValue(), mScreenType.getValue());
     }
 
     @SuppressWarnings("deprecation")

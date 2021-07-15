@@ -203,13 +203,13 @@ public class FirstActivity extends AppCompatActivity implements View.OnClickList
                 MediaViewHolder mediaViewHolder = (MediaViewHolder) holder;
                 mediaViewHolder.mImageView.setImageResource(BoxingManager.getInstance().getBoxingConfig().getMediaPlaceHolderRes());
                 BaseMedia media = mList.get(position);
-                String path;
+                Uri uri;
                 if (media instanceof ImageMedia) {
-                    path = ((ImageMedia) media).getThumbnailPath();
+                    uri = ((ImageMedia) media).getUri();
                 } else {
-                    path = media.getPath();
+                    uri = media.getUri();
                 }
-                BoxingMediaLoader.getInstance().displayThumbnail(mediaViewHolder.mImageView, path, 150, 150);
+                BoxingMediaLoader.getInstance().displayUri(mediaViewHolder.mImageView, uri, 150, 150);
             }
         }
 

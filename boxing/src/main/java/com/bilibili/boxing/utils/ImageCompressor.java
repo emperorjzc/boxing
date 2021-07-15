@@ -52,6 +52,7 @@ public class ImageCompressor {
     private static final String COMPRESS_FILE_PREFIX = "compress-";
 
     private File mOutFileFile;
+    private Context context;
 
     public ImageCompressor(@NonNull File cachedRootDir) {
         if (cachedRootDir != null) {
@@ -61,6 +62,7 @@ public class ImageCompressor {
 
     public ImageCompressor(@NonNull Context context) {
         if (context != null) {
+            this.context = context;
             String rootDir = BoxingFileHelper.getCacheDir(context);
             if (TextUtils.isEmpty(rootDir)) {
                 throw new IllegalStateException("the cache dir is null");
@@ -347,5 +349,9 @@ public class ImageCompressor {
 
     private boolean isLegalFile(File file) {
         return file != null && file.exists() && file.isFile() && file.length() > 0;
+    }
+
+    public Context getContext() {
+        return context;
     }
 }

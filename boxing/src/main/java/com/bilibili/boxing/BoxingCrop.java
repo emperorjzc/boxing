@@ -57,6 +57,17 @@ public class BoxingCrop {
         mCrop.onStartCrop(activity, fragment, cropConfig, path, requestCode);
     }
 
+    public void onStartCrop(Activity activity, Fragment fragment, @NonNull BoxingCropOption cropConfig,
+                            @NonNull Uri uri, int requestCode) {
+        if (ensureLoader()) {
+            throw new IllegalStateException("init method should be called first");
+        }
+        if (cropConfig == null) {
+            throw new IllegalArgumentException("crop config is null.");
+        }
+        mCrop.onStartCrop(activity, fragment, cropConfig, uri, requestCode);
+    }
+
     public Uri onCropFinish(int resultCode, Intent data) {
         if (ensureLoader()) {
             throw new IllegalStateException("init method should be called first");

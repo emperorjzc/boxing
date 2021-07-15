@@ -18,8 +18,11 @@
 package com.bilibili.boxing.model.task.impl;
 
 import android.content.ContentResolver;
+import android.content.ContentUris;
 import android.database.Cursor;
+import android.net.Uri;
 import android.os.Build;
+import android.provider.MediaStore;
 import android.provider.MediaStore.Images;
 import android.support.annotation.NonNull;
 import android.support.annotation.WorkerThread;
@@ -141,8 +144,9 @@ public class ImageTask implements IMediaTask<ImageMedia> {
                         width = cursor.getInt(cursor.getColumnIndex(Images.Media.WIDTH));
                         height = cursor.getInt(cursor.getColumnIndex(Images.Media.HEIGHT));
                     }
+                    Uri uri = ContentUris.withAppendedId(MediaStore.Images.Media.EXTERNAL_CONTENT_URI, Long.parseLong(id));
                     ImageMedia imageItem = new ImageMedia.Builder(id, picPath).setThumbnailPath(mThumbnailMap.get(id))
-                            .setSize(size).setMimeType(mimeType).setHeight(height).setWidth(width).build();
+                            .setSize(size).setMimeType(mimeType).setHeight(height).setWidth(width).setUri(uri).build();
                     if (!result.contains(imageItem)) {
                         result.add(imageItem);
                     }

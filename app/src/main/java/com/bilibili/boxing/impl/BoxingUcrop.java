@@ -26,7 +26,10 @@ import android.support.v4.app.Fragment;
 
 import com.bilibili.boxing.loader.IBoxingCrop;
 import com.bilibili.boxing.model.config.BoxingCropOption;
+import com.bilibili.boxing.utils.Utils;
 import com.yalantis.ucrop.UCrop;
+
+import java.io.File;
 
 /**
  * use Ucrop(https://github.com/Yalantis/uCrop) as the implement for {@link IBoxingCrop}
@@ -64,5 +67,25 @@ public class BoxingUcrop implements IBoxingCrop {
             return null;
         }
         return UCrop.getOutput(data);
+    }
+
+    @Override
+    public void onStartCrop(Context context, Fragment fragment, @NonNull BoxingCropOption cropConfig, @NonNull Uri uri, int requestCode) {
+        File imageFile = Utils.INSTANCE.saveMediaImageFile(context, uri);
+        if (imageFile == null) return;
+        Uri targetUri = new Uri.Builder()
+                .scheme("file")
+                .appendPath(imageFile.getPath())
+                .build();
+        UCrop.Options crop = new UCrop.Options();
+        // do not copy exif information to crop pictures
+        // because png do not have exif and png is not Distinguishable
+        crop.setCompressionFormat(Bitmap.CompressFormat.PNG);
+        crop.withMaxResultSize(cropConfig.getMaxWidth(), cropConfig.getMaxHeight());
+        crop.withAspectRatio(cropConfig.getAspectRatioX(), cropConfig.getAspectRatioY());
+
+        UCrop.of(targetUri, cropConfig.getDestination())
+                .withOptions(crop)
+                .start(context, fragment, requestCode);
     }
 }

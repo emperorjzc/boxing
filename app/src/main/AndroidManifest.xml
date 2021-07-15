@@ -1,5 +1,4 @@
-<?xml version="1.0" encoding="utf-8"?>
-<!--
+<?xml version="1.0" encoding="utf-8"?><!--
   ~  Copyright (C) 2017 Bilibili
   ~
   ~  Licensed under the Apache License, Version 2.0 (the "License");
@@ -18,10 +17,13 @@
 
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
-    package="com.bilibili.boxing.demo">
+    package="com.bilibili.boxing.demo"
+    android:requestLegacyExternalStorage="true">
 
-    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE"/>
-    <uses-permission android:name="android.permission.CAMERA"/>
+    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
+    <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
+    <uses-permission android:name="android.permission.MANAGE_EXTERNAL_STORAGE" />
+    <uses-permission android:name="android.permission.CAMERA" />
 
     <application
         android:name="com.bilibili.boxing.BoxingApplication"
@@ -38,24 +40,24 @@
             android:launchMode="singleTop"
             android:theme="@style/Boxing.AppTheme.NoActionBar">
             <intent-filter>
-                <action android:name="android.intent.action.MAIN"/>
+                <action android:name="android.intent.action.MAIN" />
 
-                <category android:name="android.intent.category.LAUNCHER"/>
+                <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
 
         <activity
             android:name="com.bilibili.boxing.ui.SecondActivity"
-            android:theme="@style/Boxing.AppTheme.NoActionBar"/>
+            android:theme="@style/Boxing.AppTheme.NoActionBar" />
 
         <activity
             android:name="com.bilibili.boxing.ui.FirstActivity"
-            android:theme="@style/Boxing.AppTheme.NoActionBar"/>
+            android:theme="@style/Boxing.AppTheme.NoActionBar" />
 
         <activity
             android:name="com.yalantis.ucrop.UCropActivity"
             android:screenOrientation="portrait"
-            android:theme="@style/Boxing.AppTheme.NoActionBar"/>
+            android:theme="@style/Boxing.AppTheme.NoActionBar" />
 
         <activity
             android:name="com.bilibili.boxing.ui.IntentFilterActivity"
@@ -87,7 +89,7 @@
 
             <meta-data
                 android:name="android.support.FILE_PROVIDER_PATHS"
-                android:resource="@xml/boxing_file_provider"/>
+                android:resource="@xml/boxing_file_provider" />
 
         </provider>
 

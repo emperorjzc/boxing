@@ -90,7 +90,7 @@ public class BoxingRawImageFragment extends BoxingBaseFragment {
     void setUserVisibleCompat(boolean isVisibleToUser) {
         if (isVisibleToUser) {
             Point point = getResizePointer(mMedia.getSize());
-            ((AbsBoxingViewActivity) getActivity()).loadRawImage(mImageView, mMedia.getPath(), point.x, point.y, new BoxingCallback(this));
+            ((AbsBoxingViewActivity) getActivity()).loadRawImage(mImageView, mMedia.getUri(), point.x, point.y, new BoxingCallback(this));
         }
     }
 

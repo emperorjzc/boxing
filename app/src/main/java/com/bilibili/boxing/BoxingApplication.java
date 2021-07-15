@@ -30,6 +30,8 @@ import com.bilibili.boxing.loader.IBoxingMediaLoader;
  */
 public class BoxingApplication extends Application {
 
+    private static Application application;
+
     @Override
     public void onCreate() {
         super.onCreate();
@@ -37,5 +39,10 @@ public class BoxingApplication extends Application {
         IBoxingMediaLoader loader = new BoxingGlideLoader();
         BoxingMediaLoader.getInstance().init(loader);
         BoxingCrop.getInstance().init(new BoxingUcrop());
+        application = this;
+    }
+
+    public static Application getApplication() {
+        return application;
     }
 }

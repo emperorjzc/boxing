@@ -31,6 +31,7 @@ import com.bilibili.boxing.demo.R;
 import com.bilibili.boxing.loader.IBoxingCallback;
 import com.bilibili.boxing.loader.IBoxingMediaLoader;
 import com.bilibili.boxing.utils.BoxingFileHelper;
+import com.bumptech.glide.Glide;
 import com.facebook.cache.disk.DiskCacheConfig;
 import com.facebook.common.executors.UiThreadImmediateExecutorService;
 import com.facebook.common.references.CloseableReference;
@@ -93,9 +94,8 @@ public class BoxingFrescoLoader implements IBoxingMediaLoader {
 
 
     @Override
-    public void displayThumbnail(@NonNull final ImageView img, @NonNull final String absPath, int width, int height) {
-        String finalAbsPath = "file://" + absPath;
-        ImageRequestBuilder requestBuilder = ImageRequestBuilder.newBuilderWithSource(Uri.parse(finalAbsPath));
+    public void displayThumbnail(@NonNull final ImageView img, @NonNull final Uri uri, int width, int height) {
+        ImageRequestBuilder requestBuilder = ImageRequestBuilder.newBuilderWithSource(uri);
         requestBuilder.setResizeOptions(new ResizeOptions(width, height));
         ImageRequest request = requestBuilder.build();
         final DataSource<CloseableReference<CloseableImage>> dataSource =
@@ -106,7 +106,8 @@ public class BoxingFrescoLoader implements IBoxingMediaLoader {
             @Override
             protected void onNewResultImpl(DataSource<CloseableReference<CloseableImage>> dataSource) {
                 String path = (String) img.getTag(R.string.boxing_app_name);
-                if (path == null || absPath.equals(path)) {
+                // FIXME: 2021/7/15 uri.getPath().equals(path) 这个判断待验证
+                if (path == null || uri.getPath().equals(path)) {
                     if (dataSource.getResult() == null) {
                         onFailureImpl(dataSource);
                         return;
@@ -124,9 +125,8 @@ public class BoxingFrescoLoader implements IBoxingMediaLoader {
     }
 
     @Override
-    public void displayRaw(@NonNull ImageView img, @NonNull String absPath, int width, int height,  IBoxingCallback callback) {
-        absPath = "file://" + absPath;
-        ImageRequestBuilder requestBuilder = ImageRequestBuilder.newBuilderWithSource(Uri.parse(absPath));
+    public void displayRaw(@NonNull ImageView img, @NonNull Uri uri, int width, int height,  IBoxingCallback callback) {
+        ImageRequestBuilder requestBuilder = ImageRequestBuilder.newBuilderWithSource(uri);
         if (width > 0 && height > 0) {
             requestBuilder.setResizeOptions(new ResizeOptions(width, height));
         }
@@ -213,6 +213,10 @@ public class BoxingFrescoLoader implements IBoxingMediaLoader {
             drawable = new BitmapDrawable(null, bitmap);
         }
         return drawable;
+    }
+
+    @Override
+    public void displayUri(@NonNull ImageView img, @NonNull  Uri uri, int width, int height) {
     }
 
 }

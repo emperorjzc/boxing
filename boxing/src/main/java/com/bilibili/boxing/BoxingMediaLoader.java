@@ -17,6 +17,7 @@
 
 package com.bilibili.boxing;
 
+import android.net.Uri;
 import android.support.annotation.NonNull;
 import android.widget.ImageView;
 
@@ -43,18 +44,25 @@ public class BoxingMediaLoader {
         this.mLoader = loader;
     }
 
-    public void displayThumbnail(@NonNull ImageView img, @NonNull String path, int width, int height) {
+    public void displayThumbnail(@NonNull ImageView img, @NonNull Uri uri, int width, int height) {
         if (ensureLoader()) {
             throw new IllegalStateException("init method should be called first");
         }
-        mLoader.displayThumbnail(img, path, width, height);
+        mLoader.displayThumbnail(img, uri, width, height);
     }
 
-    public void displayRaw(@NonNull ImageView img, @NonNull String path, int width, int height, IBoxingCallback callback) {
+    public void displayRaw(@NonNull ImageView img, @NonNull Uri uri, int width, int height, IBoxingCallback callback) {
         if (ensureLoader()) {
             throw new IllegalStateException("init method should be called first");
         }
-        mLoader.displayRaw(img, path, width, height, callback);
+        mLoader.displayRaw(img, uri, width, height, callback);
+    }
+
+    public void displayUri(@NonNull ImageView img, @NonNull Uri uri, int width, int height) {
+        if (ensureLoader()) {
+            throw new IllegalStateException("init method should be called first");
+        }
+        mLoader.displayUri(img, uri, width, height);
     }
 
     public IBoxingMediaLoader getLoader() {

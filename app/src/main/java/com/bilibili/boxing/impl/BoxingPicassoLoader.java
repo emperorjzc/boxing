@@ -18,12 +18,14 @@
 package com.bilibili.boxing.impl;
 
 import android.graphics.Bitmap;
+import android.net.Uri;
 import android.support.annotation.NonNull;
 import android.widget.ImageView;
 
 import com.bilibili.boxing.demo.R;
 import com.bilibili.boxing.loader.IBoxingCallback;
 import com.bilibili.boxing.loader.IBoxingMediaLoader;
+import com.bumptech.glide.Glide;
 import com.squareup.picasso.Callback;
 import com.squareup.picasso.Picasso;
 import com.squareup.picasso.RequestCreator;
@@ -38,16 +40,14 @@ import com.squareup.picasso.Transformation;
 public class BoxingPicassoLoader implements IBoxingMediaLoader {
 
     @Override
-    public void displayThumbnail(@NonNull ImageView img, @NonNull String absPath, int width, int height) {
-        String path = "file://" + absPath;
-        Picasso.with(img.getContext()).load(path).placeholder(R.drawable.ic_boxing_default_image).centerCrop().resize(width, height).into(img);
+    public void displayThumbnail(@NonNull ImageView img, @NonNull Uri uri, int width, int height) {
+        Picasso.with(img.getContext()).load(uri).placeholder(R.drawable.ic_boxing_default_image).centerCrop().resize(width, height).into(img);
     }
 
     @Override
-    public void displayRaw(@NonNull ImageView img, @NonNull String absPath, int width, int height, final IBoxingCallback callback) {
-        String path = "file://" + absPath;
+    public void displayRaw(@NonNull ImageView img, @NonNull Uri uri, int width, int height, final IBoxingCallback callback) {
         RequestCreator creator = Picasso.with(img.getContext())
-                .load(path);
+                .load(uri);
         if (width > 0 && height > 0) {
             creator.transform(new BitmapTransform(width, height));
         }
@@ -66,6 +66,11 @@ public class BoxingPicassoLoader implements IBoxingMediaLoader {
                 }
             }
         });
+    }
+
+    @Override
+    public void displayUri(@NonNull ImageView img, @NonNull  Uri uri, int width, int height) {
+        Picasso.with(img.getContext()).load(uri).placeholder(R.drawable.ic_boxing_default_image).centerCrop().resize(width, height).into(img);
     }
 
     private class BitmapTransform implements Transformation {

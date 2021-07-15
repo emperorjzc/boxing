@@ -48,7 +48,10 @@ public class CompressTask {
         FutureTask<Boolean> task = BoxingExecutor.getInstance().runWorker(new Callable<Boolean>() {
             @Override
             public Boolean call() throws Exception {
-                final String path = image.getPath();
+                // 先根据 uri 转存 Image 再获取 path
+                File imageFile = Utils.INSTANCE.saveMediaImageFile(imageCompressor.getContext(), image.getUri());
+                if (imageFile == null) return false;
+                final String path = imageFile.getPath();
                 File compressSaveFile = imageCompressor.getCompressOutFile(path);
                 File needCompressFile = new File(path);
                 if (BoxingFileHelper.isFileValid(compressSaveFile)) {

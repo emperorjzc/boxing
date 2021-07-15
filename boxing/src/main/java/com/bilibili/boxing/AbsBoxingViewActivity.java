@@ -19,6 +19,7 @@ package com.bilibili.boxing;
 
 import android.content.ContentResolver;
 import android.content.Intent;
+import android.net.Uri;
 import android.os.Bundle;
 import android.os.PersistableBundle;
 import android.support.annotation.NonNull;
@@ -117,8 +118,12 @@ public abstract class AbsBoxingViewActivity extends AppCompatActivity implements
         return getApplicationContext().getContentResolver();
     }
 
-    public final void loadRawImage(@NonNull ImageView img, @NonNull String path, int width, int height, IBoxingCallback callback) {
-        BoxingMediaLoader.getInstance().displayRaw(img, path, width, height, callback);
+    public final void loadRawImage(@NonNull ImageView img, @NonNull Uri uri, int width, int height, IBoxingCallback callback) {
+        BoxingMediaLoader.getInstance().displayRaw(img, uri, width, height, callback);
+    }
+
+    public final void loadUriImage(@NonNull ImageView img, @NonNull Uri uri, int width, int height, IBoxingCallback callback) {
+        BoxingMediaLoader.getInstance().displayUri(img, uri, width, height);
     }
 
     /**

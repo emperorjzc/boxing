@@ -17,6 +17,7 @@
 
 package com.bilibili.boxing.model.entity.impl;
 
+import android.net.Uri;
 import android.os.Parcel;
 import android.os.Parcelable;
 
@@ -123,6 +124,7 @@ public class VideoMedia extends BaseMedia {
         private String mSize;
         private String mDateTaken;
         private String mMimeType;
+        private Uri uri;
 
         public Builder(String id, String path) {
             this.mId = id;
@@ -154,6 +156,11 @@ public class VideoMedia extends BaseMedia {
             return this;
         }
 
+        public Builder setUri(Uri uri) {
+            this.uri = uri;
+            return this;
+        }
+
 
         public VideoMedia build() {
             return new VideoMedia(this);
@@ -172,6 +179,7 @@ public class VideoMedia extends BaseMedia {
         dest.writeString(this.mDuration);
         dest.writeString(this.mDateTaken);
         dest.writeString(this.mMimeType);
+        dest.writeString(this.uri.toString());
     }
 
     protected VideoMedia(Parcel in) {
@@ -180,6 +188,7 @@ public class VideoMedia extends BaseMedia {
         this.mDuration = in.readString();
         this.mDateTaken = in.readString();
         this.mMimeType = in.readString();
+        this.uri = Uri.parse(in.readString());
     }
 
     public static final Parcelable.Creator<VideoMedia> CREATOR = new Parcelable.Creator<VideoMedia>() {
