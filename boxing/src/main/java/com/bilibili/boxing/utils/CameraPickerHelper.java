@@ -157,7 +157,7 @@ public class CameraPickerHelper {
 
     private void startCameraIntent(final Activity activity, final Fragment fragment, String subFolder,
                                    final String action, final int requestCode) {
-        final String cameraOutDir = BoxingFileHelper.getExternalDCIM(subFolder);
+        final String cameraOutDir = BoxingFileHelper.getCacheDir(activity);
         try {
             if (BoxingFileHelper.createFile(cameraOutDir)) {
                 mOutputFile = new File(cameraOutDir, System.currentTimeMillis() + ".jpg");

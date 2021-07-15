@@ -69,6 +69,7 @@ public class ImageMedia extends BaseMedia implements Parcelable {
         this.mPath = file.getAbsolutePath();
         this.mSize = String.valueOf(file.length());
         this.mIsSelected = true;
+        this.uri = Uri.fromFile(file);
     }
 
     public ImageMedia(Builder builder) {
