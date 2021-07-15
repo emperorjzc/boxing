@@ -22,7 +22,7 @@ def siteUrl = "https://github.com/Bilibili/boxing"
 def gitUrl = "https://github.com/Bilibili/boxing.git"
 
 group = "com.bilibili"
-version = "1.0.5"
+version = "1.0.6"
 
 android {
     compileSdkVersion rootProject.ext.compileSdkVersion
